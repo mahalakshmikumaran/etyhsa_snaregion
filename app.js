@@ -309,10 +309,12 @@ const d3Tableau = () => {
 
 		function nodeColor(node) {
 			var color;
-			if (node.RECORD_TYPE == "CI - Not Tested") color = "grey";
-			if (node.RECORD_TYPE == "CI - Tested Negative") color = "green";
-			if (node.RECORD_TYPE == "DI - VOC Positive") color = "red";
-			if (node.RECORD_TYPE == "DI - Wild Type") color = "blue";
+			if (node.Case_Zone == "Calgary") color = "pink";
+			if (node.Case_Zone == "Edmonton") color = "green";
+			if (node.Case_Zone == "Central") color = "red";
+			if (node.Case_Zone == "Alberta Health") color = "blue";
+			if (node.Case_Zone == "North") color = "black";
+			if (node.Case_Zone == "Unknown") color = "lightblue";
 
 			return color;
 		}
