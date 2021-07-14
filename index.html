@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.links line {
+  stroke: rgb(8, 8, 8);
+}
+.nodes circle {
+  pointer-events: all;
+  stroke: none;
+  stroke-width: 40px;
+}
+.dot {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: #039243;
+}
+.gray {
+  background-color: #777373;
+}
+.text {
+  display: inline-block;
+}
+</style>
+<div><h2 style="color:rgb(0, 94, 133)">COVID-19 Contact Tracing</h2></div>
+<div><h4><span class="dot red"></span> <span class="text">VOC-Positive&emsp;</span> 
+  <span class="dot blue"></span> <span class="text">Wild-Type&emsp;</span>
+  <span class="dot green"></span> <span class="text">Tested-Negative&emsp;</span>
+  <span class="dot gray"></span> <span class="text">Not-Tested</span>
+</h4></div>
+<svg width="1200" height="800"></svg>
+  <!-- Tableau script -->
+<script src="./tableau.extensions.1.4.0.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="./app.js"></script>
+<body>
+</body>
+
+</html>
