@@ -245,7 +245,7 @@ const d3Tableau = () => {
 				.data(graph.nodes)
 				.enter()
 				.append("circle")
-				.attr("r", 2.5)
+				.attr("r", 4.5)
 				.style("fill", nodeColor)
 				.on("mouseover", handleMouseOver)
 				.on("mouseout", handleMouseOut)
