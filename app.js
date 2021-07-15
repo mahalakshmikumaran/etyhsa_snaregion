@@ -118,7 +118,7 @@ const d3Tableau = () => {
 			for (let i = 0; i < originalLinksFields.length; i++) {
 				if (
 					nodeFields.some(
-						(e) => e.ID === originalLinksFields[i].source.ID
+						(e) => e.ID === originalLinksFields[i].source
 					)
 				) {
 					filteredLinks.push({
