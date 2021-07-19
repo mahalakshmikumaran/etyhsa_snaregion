@@ -310,7 +310,7 @@ const d3Tableau = () => {
 		function nodeColor(node) {
 			var color;
 			if (node.Case_Zone == "Calgary") color = "#20B2AA";
-			if (node.Case_Zone == "Edmonton") color = "#2F4F4F";
+			if (node.Case_Zone == "Edmonton") color = "#8B4513";
 			if (node.Case_Zone == "Central") color = "#A52A2A";
 			if (node.Case_Zone == "Alberta Health") color = "rgb(0, 94, 133)";
 			if (node.Case_Zone == "North") color = "green";
