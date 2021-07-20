@@ -314,7 +314,7 @@ const d3Tableau = () => {
 			if (node.Case_Zone == "Central") color = "#A52A2A";
 			if (node.Case_Zone == "Alberta Health") color = "rgb(0, 94, 133)";
 			if (node.Case_Zone == "North") color = "green";
-			if (node.Case_Zone == "Unknown") color = "lightblue";
+			if (node.Case_Zone == "South") color = "lightblue";
 
 			return color;
 		}
