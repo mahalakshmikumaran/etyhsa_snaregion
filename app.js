@@ -48,19 +48,20 @@ const d3Tableau = () => {
 		for (const [i, row] of dataTable.data.entries()) {
 			list.push({
 				index: i,
-				ID: row[fieldIdx("ID")].value,
-				Case_Variant: row[fieldIdx("Case Variant")].value,
-				Case_ID: row[fieldIdx("Case ID")].value,
-				Case_Zone: row[fieldIdx("Case Zone")].value,
-				contactRecordType: row[fieldIdx("Contact Recordtype")].value,
-				contactVoc: row[fieldIdx("Contact VOC")].value,
-				contactId: row[fieldIdx("Contact ID")].value,
+				ID: row[fieldIdx("ID")].value,				
+				Case_ID: row[fieldIdx("Case Id")].value,
 				idLabel: row[fieldIdx("Id Label")].value,
+				Case_FirstName: row[fieldIdx("Case First Name")].value,
+				Case_LastName: row[fieldIdx("Case Last Name")].value,
+				Case_Variant: row[fieldIdx("Case Variant Result")].value,
+				Case_Zone: row[fieldIdx("Case Zone")].value,				
+				Case_Age: row[fieldIdx("Case Age")].value,
+				Dateofdiagnosis: row[fieldIdx("Dateofdiagnosis")].value,
 				RECORD_TYPE: row[fieldIdx("Record Type")].value,
-				testResultDate: row[fieldIdx("Test Result Date")].value,
-				VARIANT: row[fieldIdx("Variant")].value,
-				Variant_Identified_Date:
-					row[fieldIdx("Variant Identified Date")].value,
+				contactId: row[fieldIdx("Contact Id")].value,
+				contactFirstName: row[fieldIdx("Contact First Name")].value,
+				contactLastName: row[fieldIdx("Contact Last Name")].value,
+				contactAge: row[fieldIdx("Contact Age")].value,
 			});
 		}
 		return list;
@@ -203,8 +204,8 @@ const d3Tableau = () => {
 			.attr("viewBox", "0 -5 10 10")
 			.attr("refX", 10)
 			.attr("refY", 0)
-			.attr("markerWidth", 7)
-			.attr("markerHeight", 7)
+			.attr("markerWidth", 8)
+			.attr("markerHeight", 8)
 			.attr("orient", "auto")
 			.attr("stroke-width", 2)
 			.append("path")
@@ -219,8 +220,8 @@ const d3Tableau = () => {
 			.style("position", "absolute")
 			.style("padding", "10px")
 			.style("z-index", "10")
-			.style("width", "300px")
-			.style("height", "110px")
+			.style("width", "400px")
+			.style("height", "180px")
 			.style("background-color", "rgba(230, 242, 255, 0.8)")
 			.style("border-radius", "5px")
 			.style("visibility", "hidden")
@@ -324,27 +325,81 @@ const d3Tableau = () => {
 			if (node.RECORD_TYPE == "CI - Not Tested") type = "Not Tested";
 			if (node.RECORD_TYPE == "CI - Tested Negative") type = "Tested Negative";
 			if (node.RECORD_TYPE == "DI - VOC Positive") type = "VOC Positive";
-			if (node.RECORD_TYPE == "DI - Wild Type") type = "Wild Type";
+			if (node.RECORD_TYPE == "DI - Wild Type/Not Screen") type = "Wild Type";
 
 			return type;
 		}
 
-		function dateConvert(datetext) {
-			var months = {JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11};
-			var dd = datetext.slice(2,4);
-			var mmm = datetext.slice(4,7);
-			var yyyy = datetext.slice(7,11);
-			return new Date(yyyy, months[mmm], dd);
+		function identifiedDate(node) {
+			//var months = {JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11};
+			//var dd = datetext.slice(2,4);
+			//var mmm = datetext.slice(4,7);
+			//var yyyy = datetext.slice(7,11);
+			//return new Date(yyyy, months[mmm], dd);
+			if(node.Dateofdiagnosis !== '%null%')
+				{
+					return "Identified Date: " + node.Dateofdiagnosis;
+				}
+				else
+				{
+					return "Identified Date: N/A";
+				}
+		}
+
+		function findName(node)
+		{
+			//console.log(node.Case_FirstName);
+			//console.log(node.Case_FirstName !== '%null%');
+			if(node.Case_FirstName !== '%null%')
+				{
+					return "Name: " + node.Case_FirstName + " " + node.Case_LastName;
+				}
+				else
+				{
+					return "Contact Name: " + node.contactFirstName + " " + node.contactLastName;
+				}
+		}
+
+		function findAge(node)
+		{
+			console.log(node.Case_Age);
+			if(node.Case_Age !== '%null%')
+				{
+					return "Age: " + node.Case_Age;
+				}
+				else if(node.contactAge !== '%null%')
+				{
+					return "Contact Age: " + node.contactAge;
+				}
+				else
+				{
+					return "Contact Age: N/A";
+				}
+		}
+
+		function findVariant(node)
+		{
+			//console.log(node.Case_Variant);
+			if(node.Case_Variant !== '%null%')
+				{
+					return "Variant: " + node.Case_Variant;
+				}
+				else
+				{
+					return "Variant: N/A";
+				}
 		}
 
 		function handleMouseOver(node) {
-			var datevalue = dateConvert(node.Variant_Identified_Date).toDateString();
+			//var datevalue = dateConvert(node.Variant_Identified_Date).toDateString();
 			var htmlContent = "<div>";
-			htmlContent += "Variant: " + node.VARIANT + "<br>";
-			htmlContent += "Identified Date: " + datevalue + "<br>";
 			htmlContent += "ID: " + node.ID + "<br>";
-			htmlContent += "Zone: " + node.Case_Zone + "<br>";
+			htmlContent += findName(node) + "<br>";
+			htmlContent += findAge(node) + "<br>";
 			htmlContent += "Record Type: " + recordType(node) + "<br>";
+			htmlContent += findVariant(node) + "<br>";
+			htmlContent += identifiedDate(node) + "<br>";			
+			htmlContent += "Zone: " + node.Case_Zone + "<br>";
 			htmlContent += "</div>";
 			tooltip.html(htmlContent);
 			return tooltip
