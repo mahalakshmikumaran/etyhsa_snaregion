@@ -100,7 +100,7 @@ const d3Tableau = () => {
 
 			const [linksDataTable, linksSheet] = await getDataTable("links_table");
 			const linksFields = await getLinksFields(linksDataTable);
-
+			//updated by Ety
 			//const originalLinksFields = originalFields.links;
 			//console.log("originalLinksFields", originalLinksFields);
 
@@ -114,7 +114,7 @@ const d3Tableau = () => {
 			const finalNodeField = [...nodeFields];
 
 			filteredLinks = [];
-
+			//updated by Ety
 			for (let i = 0; i < linksFields.length; i++) {
 				if (
 					nodeFields.some((e) => e.ID === linksFields[i].target)
