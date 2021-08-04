@@ -98,41 +98,31 @@ const d3Tableau = () => {
 			const [nodeDataTable, nodeSheet] = await getDataTable("node_table");
 			const nodeFields = await getNodeFields(nodeDataTable);
 
-			const [linksDataTable, linksSheet] = await getDataTable(
-				"links_table"
-			);
+			const [linksDataTable, linksSheet] = await getDataTable("links_table");
 			const linksFields = await getLinksFields(linksDataTable);
 
-			const originalLinksFields = originalFields.links;
-			console.log("originalLinksFields", originalLinksFields);
+			//const originalLinksFields = originalFields.links;
+			//console.log("originalLinksFields", originalLinksFields);
 
 			//Ensure all nodes that are in filtered table remain, as well as all nodes that are targets of nodes in table
 			//all nodes from filtered table = nodeFields
 			//targets = iterate over links.source[i].id, push links[i] to new array
 
 			console.log("nodeFields", nodeFields);
+			console.log("linksFields", linksFields);
 
 			const finalNodeField = [...nodeFields];
 
 			filteredLinks = [];
 
-			for (let i = 0; i < originalLinksFields.length; i++) {
+			for (let i = 0; i < linksFields.length; i++) {
 				if (
-					nodeFields.some(
-						(e) => e.ID === originalLinksFields[i].source
-					)
+					nodeFields.some((e) => e.ID === linksFields[i].target)
 				) {
 					filteredLinks.push({
-						source: originalLinksFields[i].source,
-						target: originalLinksFields[i].target,
+						source: linksFields[i].source,
+						target: linksFields[i].target,
 					});
-				} else {
-					// console.log(
-					// 	"not found",
-					// 	originalLinksFields[i].source.ID,
-					// 	"i",
-					// 	i
-					// );
 				}
 			}
 
@@ -331,11 +321,6 @@ const d3Tableau = () => {
 		}
 
 		function identifiedDate(node) {
-			//var months = {JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11};
-			//var dd = datetext.slice(2,4);
-			//var mmm = datetext.slice(4,7);
-			//var yyyy = datetext.slice(7,11);
-			//return new Date(yyyy, months[mmm], dd);
 			if(node.Dateofdiagnosis !== '%null%')
 				{
 					return "Identified Date: " + node.Dateofdiagnosis;
@@ -348,8 +333,6 @@ const d3Tableau = () => {
 
 		function findName(node)
 		{
-			//console.log(node.Case_FirstName);
-			//console.log(node.Case_FirstName !== '%null%');
 			if(node.Case_FirstName !== '%null%')
 				{
 					return "Name: " + node.Case_FirstName + " " + node.Case_LastName;
@@ -362,7 +345,6 @@ const d3Tableau = () => {
 
 		function findAge(node)
 		{
-			console.log(node.Case_Age);
 			if(node.Case_Age !== '%null%')
 				{
 					return "Age: " + node.Case_Age;
@@ -379,7 +361,6 @@ const d3Tableau = () => {
 
 		function findVariant(node)
 		{
-			//console.log(node.Case_Variant);
 			if(node.Case_Variant !== '%null%')
 				{
 					return "Variant: " + node.Case_Variant;
@@ -391,7 +372,6 @@ const d3Tableau = () => {
 		}
 
 		function handleMouseOver(node) {
-			//var datevalue = dateConvert(node.Variant_Identified_Date).toDateString();
 			var htmlContent = "<div>";
 			htmlContent += "ID: " + node.ID + "<br>";
 			htmlContent += findName(node) + "<br>";
