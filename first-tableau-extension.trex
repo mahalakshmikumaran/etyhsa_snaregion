@@ -4,7 +4,7 @@
         <default-locale>en_US</default-locale>
         <name resource-id="name"/>
         <description>First Tableau Extension</description>
-        <author name="Ety Dey" email="ety.dey@albertahealthservices.ca" organization="AHS"
+        <author name="Maha Kumaran" email="Mahalakshmi.kumaran@albertahealthservices.ca" organization="AHS"
                 website="https://www.AHS.ca"/>
         <min-api-version>1.0</min-api-version>
         <source-location>
